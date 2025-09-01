@@ -2,39 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Northern Pakistan Travel Website Design System
+All colors MUST be HSL for proper theme consistency.
 */
 
 @layer base {
   :root {
+    /* Base Colors - Mountain & Nature Inspired */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 210 15% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 15% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Mountain Green Primary */
+    --primary: 158 64% 25%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 158 64% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Sky Blue Secondary */
+    --secondary: 200 85% 60%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Warm Earth Tones */
+    --muted: 30 20% 95%;
+    --muted-foreground: 210 15% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Golden Accent */
+    --accent: 45 85% 60%;
+    --accent-foreground: 210 15% 20%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 158 64% 25%;
+
+    /* Design System Extensions */
+    --navbar-bg: 0 0% 100% / 0.8;
+    --navbar-blur: blur(12px);
+    
+    /* Gradients */
+    --gradient-mountain: linear-gradient(135deg, hsl(158 64% 25%), hsl(200 85% 60%));
+    --gradient-sunset: linear-gradient(135deg, hsl(45 85% 60%), hsl(25 85% 65%));
+    --gradient-overlay: linear-gradient(180deg, hsl(0 0% 0% / 0.4), hsl(0 0% 0% / 0.7));
+    
+    /* Shadows */
+    --shadow-mountain: 0 20px 40px -10px hsl(158 64% 25% / 0.3);
+    --shadow-glow: 0 0 30px hsl(158 64% 35% / 0.5);
+    --shadow-card: 0 4px 20px hsl(210 15% 20% / 0.1);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     --radius: 0.5rem;
 
@@ -101,5 +125,83 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Travel Website Utility Classes */
+@layer components {
+  /* Navbar Styles */
+  .navbar-glass {
+    backdrop-filter: var(--navbar-blur);
+    background: hsl(var(--navbar-bg));
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Hero Section */
+  .hero-overlay {
+    background: var(--gradient-overlay);
+  }
+
+  .hero-title {
+    background: var(--gradient-sunset);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Mountain Cards */
+  .mountain-card {
+    background: hsl(var(--card));
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+
+  .mountain-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-mountain);
+  }
+
+  /* Buttons */
+  .btn-mountain {
+    background: var(--gradient-mountain);
+    color: hsl(var(--primary-foreground));
+    transition: var(--transition-smooth);
+  }
+
+  .btn-mountain:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Animations */
+  .slide-in {
+    animation: slideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+}
+
+/* Keyframes */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
