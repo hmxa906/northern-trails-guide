@@ -27,7 +27,7 @@ const ResetPasswordPage = () => {
       const res = await fetch("http://localhost:5000/api/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp, password }), // ✅ send all
+        body: JSON.stringify({ email, otp, password }),
       });
 
       const data = await res.json();
@@ -49,59 +49,49 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Reset your password
-          </h2>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {/* Password */}
-          <div>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              placeholder="New Password"
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 
-                         focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          {/* Confirm Password */}
-          <div>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              required
-              placeholder="Confirm Password"
-              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 
-                         focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-          {/* Button */}
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium 
-                         rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 
-                         focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              {isLoading ? "Resetting..." : "Reset Password"}
-            </button>
-          </div>
-          {/* Message */}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-900 to-black p-6">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Reset Your Password 
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            placeholder="New Password"
+            className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            required
+            placeholder="Confirm Password"
+            className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full h-12 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition disabled:opacity-50"
+          >
+            {isLoading ? "Resetting..." : "Reset Password"}
+          </button>
+
           {message && (
             <div
-              className={`text-center ${
-                message.includes("successfully") ? "text-green-600" : "text-red-600"
+              className={`text-center text-sm ${
+                message.includes("successfully")
+                  ? "text-green-600"
+                  : "text-red-600"
               }`}
             >
               {message}

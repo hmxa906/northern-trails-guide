@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
 
       if (res.ok) {
         setMessage(data.message);
-        setOtpSent(true); // ✅ show OTP input
+        setOtpSent(true);
       } else {
         setError(data.message);
       }
@@ -46,13 +46,12 @@ export default function ForgotPasswordPage() {
       const res = await fetch("http://localhost:5000/api/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }), // ✅ verify OTP
+        body: JSON.stringify({ email, otp }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        // ✅ redirect to reset password page with email + otp
         window.location.href = `/reset-password?email=${email}&otp=${otp}`;
       } else {
         setError(data.message);
@@ -64,10 +63,10 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 p-6">
-      <div className="w-full max-w-md bg-white/90 backdrop-blur-md shadow-xl rounded-2xl p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Forgot Password 🔒
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-900 to-black p-6">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Forgot Password 
         </h2>
 
         {!otpSent ? (
@@ -78,11 +77,11 @@ export default function ForgotPasswordPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full h-14 px-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+              className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <button
               type="submit"
-              className="w-full h-14 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-md hover:opacity-90 transition"
+              className="w-full h-12 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition"
             >
               Send OTP
             </button>
@@ -95,11 +94,11 @@ export default function ForgotPasswordPage() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               required
-              className="w-full h-14 px-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+              className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <button
               type="submit"
-              className="w-full h-14 bg-gradient-to-r from-green-600 to-emerald-500 text-white font-semibold rounded-xl shadow-md hover:opacity-90 transition"
+              className="w-full h-12 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition"
             >
               Verify OTP
             </button>

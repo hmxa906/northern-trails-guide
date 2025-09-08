@@ -1,22 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // ✅ confirm password
-  const [error, setError] = useState(""); // ✅ error state
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    // ✅ confirm password check
     if (password !== confirmPassword) {
-      setError("Passwords do not match!");
+      setError("❌ Passwords do not match!");
       return;
     }
 
@@ -33,7 +34,7 @@ export default function RegisterPage() {
       alert(data.message);
 
       if (res.ok) {
-        window.location.href = "/login"; // ✅ successful register hone ke baad
+        navigate("/login"); // redirect after register
       }
     } catch (err) {
       console.error(err);
@@ -44,65 +45,57 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 p-6">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md bg-white/90 backdrop-blur-md shadow-xl rounded-2xl p-8"
-      >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Create an Account ✨
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-900 to-black p-6">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Create an Account
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="email"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full h-14 px-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
-          {/* Password */}
           <input
             type="password"
             placeholder="Create a password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full h-14 px-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
-          {/* Confirm Password */}
           <input
             type="password"
             placeholder="Confirm your password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="w-full h-14 px-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
-          {/* Error message */}
           {error && <p className="text-red-600 text-sm">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-14 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-md hover:opacity-90 transition"
+            className="w-full h-12 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition"
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
         <div className="flex items-center justify-center mt-6 text-sm">
-          <a href="/login" className="text-purple-600 hover:underline">
+          <Link to="/login" className="text-indigo-600 hover:underline">
             Already have an account? Login
-          </a>
+          </Link>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

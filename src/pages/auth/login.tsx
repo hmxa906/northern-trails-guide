@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function LoginPage() {
@@ -9,7 +8,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  
   // Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,11 +22,9 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        // ✅ Save token in localStorage
         localStorage.setItem("token", data.token);
-
         alert(data.message || "Login successful!");
-        navigate("/"); // redirect after login
+        navigate("/");
       } else {
         alert(data.message || "Invalid credentials!");
       }
@@ -39,26 +35,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 p-6">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md bg-white/90 backdrop-blur-md shadow-xl rounded-2xl p-8"
-      >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Welcome Back 👋
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-900 to-black p-6">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Login
         </h2>
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="email"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full h-14 px-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
           <input
@@ -67,26 +57,26 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full h-14 px-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
           <div className="flex items-center justify-between text-sm">
-            <Link to="/forgot-password" className="text-purple-600 hover:underline">
+            <Link to="/forgot-password" className="text-indigo-600 hover:underline">
               Forgot Password?
             </Link>
-            <Link to="/register" className="text-purple-600 hover:underline">
+            <Link to="/register" className="text-indigo-600 hover:underline">
               Create Account
             </Link>
           </div>
 
           <button
             type="submit"
-            className="w-full h-14 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-md hover:opacity-90 transition"
+            className="w-full h-12 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition"
           >
             Login
           </button>
         </form>
-      </motion.div>
+      </div>
     </div>
   );
 }
