@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import BackendTest from "./pages/components/BackendTest";
 
 // pages
@@ -22,12 +22,11 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 export default function App() {
-  // ✅ useEffect inside the component
   useEffect(() => {
     fetch("http://localhost:5000/api/test")
-      .then(res => res.json())
-      .then(data => console.log("Backend response:", data))
-      .catch(err => console.error("Error connecting to backend:", err));
+      .then((res) => res.json())
+      .then((data) => console.log("Backend response:", data))
+      .catch((err) => console.error("Error connecting to backend:", err));
   }, []);
 
   return (
@@ -36,6 +35,23 @@ export default function App() {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          {/* 🔹 Simple Buttons - Top Right */}
+          <div className="fixed top-4 right-4 flex gap-3 z-50">
+            <Link
+              to="/login"
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium shadow hover:bg-blue-700 transition-colors"
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className="px-4 py-2 rounded-lg bg-green-600 text-white font-medium shadow hover:bg-green-700 transition-colors"
+            >
+              Sign Up
+            </Link>
+          </div>
+
+          {/* 🔹 Routes */}
           <Routes>
             {/* public */}
             <Route path="/" element={<Index />} />
